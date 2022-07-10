@@ -10,7 +10,8 @@ class Lexer
 
     final public function __construct(
         protected string $query,
-    ) {}
+    ) {
+    }
 
     public function tokenise(): array
     {
@@ -25,10 +26,10 @@ class Lexer
 
             if ($type = $this->simpleCharacter($character)) {
                 $this->tokens[] = new Token($type, $character);
-            } else if ($character === '-' && isset($characters[$i + 1]) && $characters[$i + 1] === '>') {
+            } elseif ($character === '-' && isset($characters[$i + 1]) && $characters[$i + 1] === '>') {
                 $this->tokens[] = new Token(TokenType::Arrow, '->');
                 $i++;
-            } else if ($character === '\'') {
+            } elseif ($character === '\'') {
                 $buffer = '';
 
                 while (true) {
@@ -43,7 +44,7 @@ class Lexer
                 }
 
                 $this->tokens[] = new Token(TokenType::String, $buffer);
-            } else if (is_numeric($character)) {
+            } elseif (is_numeric($character)) {
                 $buffer = $character;
 
                 while (true) {
@@ -64,7 +65,7 @@ class Lexer
 
                 // TODO: Support floats!
                 $this->tokens[] = new Token(TokenType::Number, (int) str_replace('_', '', $buffer));
-            } else if (ctype_alpha($character)) {
+            } elseif (ctype_alpha($character)) {
                 $buffer = $character;
 
                 while (true) {

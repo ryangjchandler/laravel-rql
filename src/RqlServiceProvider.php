@@ -2,9 +2,9 @@
 
 namespace RyanChandler\Rql;
 
+use RyanChandler\Rql\Commands\RqlCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use RyanChandler\Rql\Commands\RqlCommand;
 
 class RqlServiceProvider extends PackageServiceProvider
 {

@@ -10,11 +10,12 @@ class Parser
 
     final public function __construct(
         protected array $tokens,
-    ) {}
+    ) {
+    }
 
     public function parse(): Query
     {
-        $query = new Query;
+        $query = new Query();
 
         for ($this->i = 0; $this->i < count($this->tokens); $this->i++) {
             $token = $this->current();
@@ -29,7 +30,7 @@ class Parser
                 $query->setUsing($identifier->literal);
 
                 $this->semiColon();
-            } else if ($token->type === TokenType::Select) {
+            } elseif ($token->type === TokenType::Select) {
                 $this->leftBrace();
 
                 while ($this->peek()?->type !== TokenType::RightBrace) {

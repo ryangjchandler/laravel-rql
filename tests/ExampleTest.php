@@ -1,9 +1,9 @@
 <?php
 
-use RyanChandler\Rql\Rql;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use RyanChandler\Rql\Rql;
 
 class Order extends Model
 {
@@ -26,7 +26,7 @@ class Order extends Model
 }
 
 it('can test', function () {
-    $rql = new Rql;
+    $rql = new Rql();
 
     $results = $rql
         ->addBinding(Order::class)
