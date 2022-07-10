@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace RyanChandler\Rql\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class RqlCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-rql';
 
     public $description = 'My command';
 
