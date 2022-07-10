@@ -11,4 +11,9 @@ enum TokenType
     case Comma;
     case LeftBrace;
     case RightBrace;
+    case Arrow;
+    case LeftParen;
+    case RightParen;
+    case Number;
+    case String;
 }

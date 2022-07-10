@@ -25,6 +25,45 @@ class Lexer
 
             if ($type = $this->simpleCharacter($character)) {
                 $this->tokens[] = new Token($type, $character);
+            } else if ($character === '-' && isset($characters[$i + 1]) && $characters[$i + 1] === '>') {
+                $this->tokens[] = new Token(TokenType::Arrow, '->');
+                $i++;
+            } else if ($character === '\'') {
+                $buffer = '';
+
+                while (true) {
+                    $next = $characters[$i + 1] ?? null;
+
+                    if (! isset($next) || $next === '\'') {
+                        break;
+                    }
+
+                    $buffer .= $next;
+                    $i++;
+                }
+
+                $this->tokens[] = new Token(TokenType::String, $buffer);
+            } else if (is_numeric($character)) {
+                $buffer = $character;
+
+                while (true) {
+                    $next = $characters[$i + 1] ?? null;
+
+                    if (! isset($next)) {
+                        break;
+                    }
+
+                    // TODO: Support floats!
+                    if (! is_numeric($next) && $next !== '_') {
+                        break;
+                    }
+
+                    $buffer .= $next;
+                    $i++;
+                }
+
+                // TODO: Support floats!
+                $this->tokens[] = new Token(TokenType::Number, (int) str_replace('_', '', $buffer));
             } else if (ctype_alpha($character)) {
                 $buffer = $character;
 
@@ -61,6 +100,8 @@ class Lexer
             '{' => TokenType::LeftBrace,
             '}' => TokenType::RightBrace,
             ',' => TokenType::Comma,
+            '(' => TokenType::LeftParen,
+            ')' => TokenType::RightParen,
             default => null,
         };
     }

@@ -33,7 +33,10 @@ it('can test', function () {
         ->toArray(<<<'rql'
         using Order;
 
-        select { id, price };
+        select {
+            id,
+            price -> currency('£', 2),
+        };
         rql);
 
     dd($results);

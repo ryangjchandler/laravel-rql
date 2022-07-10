@@ -39,9 +39,12 @@ class Parser
                         continue;
                     }
 
-                    if ($next->type === TokenType::Identifier) {
-                        $query->addSelect($next->literal);
+                    if ($next->type !== TokenType::Identifier) {
+                        throw new Exception('Expected identifier, got ' . $next->literal . '.');
                     }
+
+                    // TODO: Make this support complex expressions like function calls / modifiers.
+                    $query->addSelect($next->literal);
                 }
 
                 $this->rightBrace();
